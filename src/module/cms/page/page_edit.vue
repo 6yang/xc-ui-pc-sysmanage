@@ -94,6 +94,9 @@
                     ],
                     pagePhysicalPath: [
                         {required: true, message: '请输入物理路径', trigger: 'blur'}
+                    ],
+                    dataUrl: [
+                        {required:true,message:'输入dataUrl路径',trigger: 'blur'}
                     ]
                 },
                 siteList: []
@@ -125,6 +128,7 @@
                         this.$confirm('确认提交吗？', '提示', {}).then(() => {
                             this.addLoading = true;
                             cmsApi.page_edit(this.pageId, this.pageForm).then((res) => {
+                                console.log(res)
                                 if (res.success) {
                                     this.addLoading = false;
                                     this.$message({

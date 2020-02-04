@@ -26,18 +26,18 @@
       <el-form-item label="页面名称" prop="pageName">
         <el-input v-model="pageForm.pageName" auto-complete="off"></el-input>
       </el-form-item>
-      ​
       <el-form-item label="别名" prop="pageAliase">
         <el-input v-model="pageForm.pageAliase" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="访问路径" prop="pageWebPath">
         <el-input v-model="pageForm.pageWebPath" auto-complete="off"></el-input>
       </el-form-item>
-      ​
       <el-form-item label="物理路径" prop="pagePhysicalPath">
         <el-input v-model="pageForm.pagePhysicalPath" auto-complete="off"></el-input>
       </el-form-item>
-      ​
+      <el-form-item label="数据Url" prop="dataUrl">
+        <el-input v-model="pageForm.dataUrl" auto-complete="off"></el-input>
+      </el-form-item>
       <el-form-item label="类型">
         <el-radio-group v-model="pageForm.pageType">
           <el-radio class="radio" label="0">静态</el-radio>
@@ -66,6 +66,7 @@
                 templateList: [],
                 //新增界面数据
                 pageForm: {
+                    dataUrl:'',
                     siteId: '',
                     templateId: '',
                     pageName: '',
@@ -91,6 +92,9 @@
                     ],
                     pagePhysicalPath: [
                         {required: true, message: '请输入物理路径', trigger: 'blur'}
+                    ],
+                    dataUrl: [
+                        {required:true,message:'输入dataUrl路径',trigger: 'blur'}
                     ]
                 }
 
@@ -110,6 +114,8 @@
                                         type: 'success'
                                     });
                                     this.$refs['pageForm'].resetFields();
+                                }else if(res.message){
+                                    this.$message.error(res.message);
                                 }else{
                                     this.$message.error('提交失败');
                                 }

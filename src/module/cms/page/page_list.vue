@@ -35,13 +35,13 @@
       </el-table-column>
       <el-table-column prop="pageType" label="页面类型" width="150">
       </el-table-column>
-      <el-table-column prop="pageWebPath" label="访问路径" width="250">
+      <el-table-column prop="pageWebPath" label="访问路径" width="150">
       </el-table-column>
       <el-table-column prop="pagePhysicalPath" label="物理路径" width="250">
       </el-table-column>
       <el-table-column prop="pageCreateTime" label="创建时间" width="180">
       </el-table-column>
-      <el-table-column label="操作" width="120">
+      <el-table-column label="操作" width="220">
         <template slot-scope="page">
           <el-button
             size="small" type="text"
@@ -51,6 +51,7 @@
             size="small" type="text"
             @click="del(page.row.pageId)">删除
           </el-button>
+          <el-button @click="preview(page.row.pageId)" type="text" size="small">页面预览</el-button>
         </template>
       </el-table-column>
 
@@ -105,23 +106,23 @@
                     this.siteList = res.queryResult.list;
                 })
             },
-            edit(pageId){
+            edit(pageId) {
                 //打开修改页面
                 this.$router.push({
-                    path:'/cms/page/edit/'+pageId
+                    path: '/cms/page/edit/' + pageId
                 })
             },
-            del(pageId){
+            del(pageId) {
                 this.$confirm('确认删除此页面吗?', '提示', {}).then(() => {
-                    cmsApi.page_del(pageId).then((res)=>{
-                        if(res.success){
+                    cmsApi.page_del(pageId).then((res) => {
+                        if (res.success) {
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
                             //查询页面
                             this.query()
-                        }else{
+                        } else {
                             this.$message({
                                 type: 'error',
                                 message: '删除失败!'
@@ -130,6 +131,9 @@
                     })
 
                 })
+            },
+            preview(pageId){
+                window.open("http://www.xuecheng.com/cms/preview/"+pageId);
             }
         },
         mounted() {
